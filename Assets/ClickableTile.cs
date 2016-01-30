@@ -8,9 +8,9 @@ public class ClickableTile : MonoBehaviour {
 	public TileMap map;
 
 	void OnMouseUp() {
-		Debug.Log ("Click! at " + tileX + " " + tileY);
+		//Debug.Log ("Click! at " + tileX + " " + tileY);
 
-		map.GeneratePathTo(tileX, tileY);
+		//map.GeneratePathTo(tileX, tileY);
 	}
 
 }
