@@ -27,5 +27,29 @@ public class TurkeyController : MonoBehaviour {
 		lightSource.transform.position = new Vector3(-0.48f + float.Parse(name[0]),
 		                                             5.76f,
 		                                             0.15f + float.Parse(name[1]));
+
+		for (int i = 0; i < 2; i++) {
+			GameObject wall = Instantiate(col.gameObject);
+
+			switch (i) {
+			case 0: {
+				wall.transform.Rotate(0, 0, 270);
+				wall.transform.Translate(col.gameObject.transform.position.x - 5, 
+				                         col.gameObject.transform.position.y - 5, 
+				                         col.gameObject.transform.position.z);
+				break;
+			}
+			case 1: {
+				wall.transform.Rotate(0, 0, 270);
+				wall.transform.Translate(col.gameObject.transform.position.x - 5, 
+				                         col.gameObject.transform.position.y + 5, 
+				                         col.gameObject.transform.position.z);
+				break;
+			}
+			default: {
+				break;
+			}
+			}
+		}
 	}
 }
