@@ -7,18 +7,24 @@ public class TurkeyMovement : MonoBehaviour
 	int TurktileX, TurktileY;
 	public GameObject terrainMap;
 	Vector2 playerPos;
+	Vector3 prevPosition;
     // Use this for initialization
     void Start()
     {
 		//playerPos = terrainMap.GetComponent<Grid> ().PlayerNodeValue ();
 		//Debug.Log ("PlayerNodeValue" + terrainMap.GetComponent<Grid> ().PlayerNodeValue ());
-		InvokeRepeating ("MoveTo",3,0.5f);
+		//InvokeRepeating ("MoveTo",3,0.5f);
+		prevPosition = transform.position - new Vector3(2,2,2);
     }
 
     // Update is called once per frame
     void Update()
     {
-	
+		MoveTo ();
+		if (Vector3.Distance (transform.position, prevPosition) > 1) {
+			prevPosition = transform.position;
+			//MoveTo();
+		}
 		//DictionaryBase
 
 
