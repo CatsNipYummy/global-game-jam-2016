@@ -53,7 +53,7 @@ public class Grid : MonoBehaviour
     {
         Node playerNode = NodeFromWorldPoint(player.transform.position);
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
-        Debug.Log(" True Player pos: " + new Vector2((Mathf.Abs(worldBottomLeft.x - Mathf.RoundToInt(player.transform.position.x / nodeDiameter))), Mathf.Abs(worldBottomLeft.z - Mathf.RoundToInt(player.transform.position.z / nodeDiameter))));
+        //Debug.Log(" True Player pos: " + new Vector2((Mathf.Abs(worldBottomLeft.x - Mathf.RoundToInt(player.transform.position.x / nodeDiameter))), Mathf.Abs(worldBottomLeft.z - Mathf.RoundToInt(player.transform.position.z / nodeDiameter))));
         foreach (Node n in grid)
         {
             if (playerNode == n)
