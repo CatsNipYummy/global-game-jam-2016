@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour
 	void Awake ()
 	{
 		// Setting up the reference.
-		player = GameObject.Find("Turkesh").transform;
+		player = GameObject.Find("TurkeyParent").transform;
 		
 		// Setting the relative position as the initial relative position of the camera in the scene.
 		relCameraPos = transform.position - player.position;
