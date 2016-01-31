@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour {
 	// Use this for initialization
 	//float [] wingspeed;
 	float angle = 0;
+    public GameObject Turkesh;
 	public List<float> wingspeed = new List<float>(){
 		0,
 		0
@@ -29,15 +30,15 @@ public class InputController : MonoBehaviour {
 		Vector3 fwd = transform.TransformDirection(0,Mathf.Clamp((left-right),-90,90),0);
 
 			angle = left-right;
-			angle = angle*-((transform.rotation.y)+20);
+			angle = angle*-((Turkesh.transform.rotation.y)+20);
 
 		if(Input.GetAxis ("Vertical1") - wingspeed[0]>accuracy || Input.GetAxis ("Vertical2") - wingspeed[1] >accuracy){
 			Debug.Log (angle);
-			var rot = transform.eulerAngles;
+			var rot = Turkesh.transform.eulerAngles;
 			rot.y+= angle;
-			transform.eulerAngles = rot;
+			Turkesh.transform.eulerAngles = rot;
 		}
-		transform.position = Vector3.Lerp(transform.position,transform.position + transform.forward* (Mathf.Abs((left + right) / 2))*movementSpeed,0.5f);
+		Turkesh.transform.position = Vector3.Lerp(Turkesh.transform.position,transform.position + transform.forward* (Mathf.Abs((left + right) / 2))*movementSpeed,0.5f);
 		wingspeed [0] = Input.GetAxis ("Vertical1");
 		wingspeed [1] = Input.GetAxis ("Vertical2");
 		
