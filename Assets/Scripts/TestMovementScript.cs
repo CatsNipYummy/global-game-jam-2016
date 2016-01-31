@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class TestMovementScript : MonoBehaviour {
 
     bool _increaseSpeed = false;
 	private AudioSource m_ASlide;
 	public float speed;
+    public int _countDown;
+    public int _numberOfCol = 0;
+    public Text _text;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +37,11 @@ public class TestMovementScript : MonoBehaviour {
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
+
+        // Win Sequence
+        if (transform.position.y < 0.0f && transform.position.y > -1.0f) {
+            Application.LoadLevel("WinScene");
+        }
     }
 
 	IEnumerator RandomSounds() {
@@ -46,7 +55,9 @@ public class TestMovementScript : MonoBehaviour {
     {
         if (!_increaseSpeed && col.gameObject.tag == "Villain")
         {
-            Application.LoadLevel("Lose");
+            _numberOfCol++;
+            _countDown = (int)Time.time;
+            //Application.LoadLevel("LoseScene");
         }
         // Villain Collision
         if (_increaseSpeed && col.gameObject.tag == "Villain")
@@ -56,6 +67,31 @@ public class TestMovementScript : MonoBehaviour {
             col.gameObject.GetComponent<NavMeshAgentScript>().forceAdded = true;
             //gameObject.GetComponent<Rigidbody>().mass = 100.0f;
             //col.gameObject.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward));
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (!_increaseSpeed && col.gameObject.tag == "Villain")
+        {
+            _numberOfCol--;
+            if (_numberOfCol == 0)
+                _text.text = "";
+            //Application.LoadLevel("LoseScene");
+        }
+        
+
+    }
+
+    void OnCollisionStay(Collision col)
+    {
+       if(_numberOfCol > 0)
+        {
+            _text.text = ((int)(4 - (Time.time - _countDown))).ToString();
+            if(Time.time - _countDown > 3 )
+            {
+                Application.LoadLevel("LoseScene");
+            }
         }
     }
 

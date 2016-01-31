@@ -12,12 +12,25 @@ public class VideoScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!_movie.isPlaying) {
+		if (!_movie.isPlaying && Application.loadedLevelName == "LoseScene") {
 			StartCoroutine(loadLevel("Final Time"));
 		}	
-	}
 
-	IEnumerator loadLevel (string name) {
+        if (Application.loadedLevelName == "LoseScene")
+        {
+            if (Input.anyKey)
+            {
+                Application.LoadLevel("House");
+            }
+        }
+        if (Application.loadedLevelName == "House")
+        {
+            Application.LoadLevel("WinScene");
+
+        }
+    }
+
+    IEnumerator loadLevel (string name) {
 		yield return new WaitForSeconds(1.0f);
 		Application.LoadLevel(name);
 	}
