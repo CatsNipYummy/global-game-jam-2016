@@ -10,6 +10,7 @@ public class NavMeshAgentScript : MonoBehaviour {
     public bool patrolAI;
     public bool forceAdded = false;
     public GameObject particleSystem;
+	public static AudioSource m_Audio = null;
 
     void GoToNextPointInArray()
     {
@@ -32,6 +33,9 @@ public class NavMeshAgentScript : MonoBehaviour {
         if (Vector3.Distance(turkey.position, gameObject.transform.position) < 3f)
         {
             //Produce fork animation
+			if(m_Audio == null)
+				m_Audio = SoundManager.getInstance().playSound(SoundClips.turkeyScream);
+
             patrolAI = false;
         }
         if (!patrolAI)
