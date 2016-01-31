@@ -3,11 +3,13 @@ using System.Collections;
 
 public class TestMovementScript : MonoBehaviour {
 
-    public bool _increaseSpeed = false;
-    public float speed;
+    bool _increaseSpeed = false;
+	private AudioSource m_ASlide;
+	public float speed;
+
 	// Use this for initialization
 	void Start () {
-	
+		StartCoroutine (RandomSounds ());
 	}
 	
 	// Update is called once per frame
@@ -33,6 +35,13 @@ public class TestMovementScript : MonoBehaviour {
         }
     }
 
+	IEnumerator RandomSounds() {
+		while (true) {
+			yield return new WaitForSeconds (Random.Range (2, 5));
+			AudioSource _audio = SoundManager.getInstance ().playSound ((SoundClips)Random.Range ((int)SoundClips.gobble1, (int)SoundClips.gobble4));
+			_audio.volume = 0.2f;
+		}
+	}
     void OnCollisionEnter (Collision col)
     {
         if (!_increaseSpeed && col.gameObject.tag == "Villain")
@@ -55,7 +64,8 @@ public class TestMovementScript : MonoBehaviour {
         if (col.gameObject.tag == "Splat")
         {
             _increaseSpeed = true;
-            SoundManager.getInstance().playSound(SoundClips.sliding);
+            if(m_ASlide == null)
+				m_ASlide = SoundManager.getInstance().playSound(SoundClips.sliding);
 
             gameObject.GetComponentInChildren<Animator>().SetTrigger("slide");
             Invoke("returnToWalkingAnimation", 3.0f);
