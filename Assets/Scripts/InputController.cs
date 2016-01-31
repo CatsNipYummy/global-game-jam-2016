@@ -33,7 +33,7 @@ public class InputController : MonoBehaviour {
 			angle = angle*-((Turkesh.transform.rotation.y)+20);
 
 		if(Input.GetAxis ("Vertical1") - wingspeed[0]>accuracy || Input.GetAxis ("Vertical2") - wingspeed[1] >accuracy){
-			Debug.Log (angle);
+			//Debug.Log (angle);
 			var rot = Turkesh.transform.eulerAngles;
 			rot.y+= angle;
 			Turkesh.transform.eulerAngles = rot;
