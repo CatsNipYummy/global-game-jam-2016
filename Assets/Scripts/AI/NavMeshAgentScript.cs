@@ -20,7 +20,7 @@ public class NavMeshAgentScript : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        cam = GameObject.Find("Main Camera");
+        cam = GameObject.Find("Camera");
         _agent = GetComponent<NavMeshAgent>();
         _agent.autoBraking = false;
 	}
