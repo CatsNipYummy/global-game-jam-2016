@@ -5,7 +5,6 @@ public class NavMeshAgentScript : MonoBehaviour {
 
     public Transform turkey;
     public Transform[] patrolPoints;
-    public GameObject cam;
     public int destPoints = 0;
     NavMeshAgent _agent;
     public bool patrolAI;
@@ -15,14 +14,14 @@ public class NavMeshAgentScript : MonoBehaviour {
         if (patrolPoints.Length == 0)
             return;
         _agent.destination = patrolPoints[destPoints].position;
-        transform.LookAt(cam.transform.position);
+        transform.LookAt(patrolPoints[destPoints].position);
         destPoints = (destPoints + 1) % patrolPoints.Length;
     }
 	// Use this for initialization
 	void Start () {
-        cam = GameObject.Find("Camera");
         _agent = GetComponent<NavMeshAgent>();
         _agent.autoBraking = false;
+        _agent.speed=(float)Random.Range(10,18)/10f;
 	}
 	
 	// Update is called once per frame
