@@ -34,6 +34,7 @@ public class TestMovementScript : MonoBehaviour {
         if (col.gameObject.tag == "Splat")
         {
             _increaseSpeed = true;
+            SoundManager.getInstance().playSound(SoundClips.sliding);
 
             gameObject.GetComponentInChildren<Animator>().SetTrigger("slide");
             Invoke("returnToWalkingAnimation", 3.0f);

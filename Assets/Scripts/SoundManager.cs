@@ -30,7 +30,8 @@ public class SoundManager : MonoBehaviour {
 	
     void Start()
     {
-        playSound(SoundClips.stonemans, true);
+        AudioSource _source = playSound(SoundClips.stonemans, true);
+        _source.volume = 0.09f;
     }
 	// Update is called once per frame
 	void Update () {
