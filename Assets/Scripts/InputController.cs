@@ -37,8 +37,23 @@ public class InputController : MonoBehaviour {
 			rot.y+= angle;
 			transform.eulerAngles = rot;
 		}
-		transform.position += transform.forward* (Mathf.Abs((left + right) / 2))*movementSpeed;
+		transform.position = Vector3.Lerp(transform.position,transform.position + transform.forward* (Mathf.Abs((left + right) / 2))*movementSpeed,0.5f);
 		wingspeed [0] = Input.GetAxis ("Vertical1");
 		wingspeed [1] = Input.GetAxis ("Vertical2");
+		
+		TurkeyMover mover = GetComponent<TurkeyMover>();
+		int movement;
+		if (left - right > accuracy) {
+			movement =1;
+
+		} else if (right - left > accuracy) {
+			movement = 2;
+
+		} else {
+			movement =3;
+
+		}
+		mover.Move(movement);
+
 	}
 }
