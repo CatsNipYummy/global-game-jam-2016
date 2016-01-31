@@ -8,6 +8,8 @@ public class NavMeshAgentScript : MonoBehaviour {
     public int destPoints = 0;
     NavMeshAgent _agent;
     public bool patrolAI;
+    public bool forceAdded = false;
+    public GameObject particleSystem;
 
     void GoToNextPointInArray()
     {
@@ -42,5 +44,39 @@ public class NavMeshAgentScript : MonoBehaviour {
             if (_agent.remainingDistance < 0.5f)
                 GoToNextPointInArray();
         }
+
+        // Force
+        if (forceAdded)
+        {
+            Debug.Log("H!!!");
+            forceAdded = false;
+            //_agent.enabled = false;
+
+
+
+            GameObject particleObject = Instantiate(particleSystem, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+            Destroy(particleObject, 2.0f);
+            Destroy(gameObject);
+
+            //InvokeRepeating("forceAddedMethod", 0.1f, 0.1f);
+            //StartCoroutine(forceAddedMethod());
+            //gameObject.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward * -10), ForceMode.Force);
+        }
 	}
+
+    IEnumerator forceAddedMethod ()
+    {
+        float currentTime = Time.time;
+
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.right * 2.0f);
+
+        while (Time.time - currentTime < 0.3f)
+        {
+            Debug.Log("Forceddddd");
+            //gameObject.transform.Translate(Vector3.forward * -10 * Time.deltaTime);
+            yield return 1;
+        }
+        CancelInvoke("forceAddedMethod");
+        _agent.enabled = true;
+    }
 }

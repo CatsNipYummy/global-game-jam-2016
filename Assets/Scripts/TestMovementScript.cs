@@ -27,6 +27,23 @@ public class TestMovementScript : MonoBehaviour {
         {
             transform.position += transform.TransformDirection(Vector3.forward) * Time.deltaTime * speed;
         }
+        else
+        {
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
+    }
+
+    void OnCollisionEnter (Collision col)
+    {
+        // Villain Collision
+        if (_increaseSpeed && col.gameObject.tag == "Villain")
+        {
+            Debug.Log("Force!");
+            //gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            col.gameObject.GetComponent<NavMeshAgentScript>().forceAdded = true;
+            //gameObject.GetComponent<Rigidbody>().mass = 100.0f;
+            //col.gameObject.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward));
+        }
     }
 
     void OnTriggerEnter (Collider col)
@@ -39,6 +56,15 @@ public class TestMovementScript : MonoBehaviour {
             gameObject.GetComponentInChildren<Animator>().SetTrigger("slide");
             Invoke("returnToWalkingAnimation", 3.0f);
         }
+    }
+
+    void OnTriggerExit (Collider col)
+    {
+        if (col.gameObject.tag == "Villain")
+        {
+            col.gameObject.GetComponent<NavMeshAgentScript>().forceAdded = false;
+        }
+        gameObject.GetComponent<Rigidbody>().mass = 1.0f;
     }
 
     // Return to the walking animation
