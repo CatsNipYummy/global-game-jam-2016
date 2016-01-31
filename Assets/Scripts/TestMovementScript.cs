@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TestMovementScript : MonoBehaviour {
 
-    bool _increaseSpeed = false;
+    public bool _increaseSpeed = false;
     public float speed;
 	// Use this for initialization
 	void Start () {
@@ -35,6 +35,10 @@ public class TestMovementScript : MonoBehaviour {
 
     void OnCollisionEnter (Collision col)
     {
+        if (!_increaseSpeed && col.gameObject.tag == "Villain")
+        {
+            Application.LoadLevel("Lose");
+        }
         // Villain Collision
         if (_increaseSpeed && col.gameObject.tag == "Villain")
         {
